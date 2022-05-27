@@ -48,8 +48,9 @@ const UserController = {
 	// update User by id
 	updateUser({ params, body }, res) {
 		User.findOneAndUpdate(
-			{ _id: params.id }
-			// 	, body, {
+			{ _id: params.id },
+			body
+			// , {
 			// 	// 	new: true,
 			// 	// 	runValidators: true,
 			// }
