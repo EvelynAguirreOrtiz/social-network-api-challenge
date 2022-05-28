@@ -1,58 +1,54 @@
 const { Schema, model } = require("mongoose");
 
 // Thought model
-const ThoughtSchema = new Schema(
-  {
-    thoughtText: {
-    type: String,
-    nimLength: 1,
-    maxLength: 280,
-    required: true,
-    }
-    createdAt: {
-    type: Date,
-    default: Date.now,
+const ThoughtSchema = new Schema({
+	thoughtText: {
+		type: String,
+		nimLength: 1,
+		maxLength: 280,
+		required: true,
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
 		get: (createdAtVal) => dateFormat(createdAtVal),
-    }
-    userName: {
-    type: String,
-    required: true,
-    } 
-  }
-);
+	},
+	userName: {
+		type: String,
+		required: true,
+	},
+	// reactions: [ReactionSchema],
+	// (These are like replies)
+	// Array of nested documents created with the reactionSchema
+});
 
-
-
-
-// reactions (These are like replies)
-
-// Array of nested documents created with the reactionSchema
 // Schema Settings
-
 // Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
-
+// UserSchema.virtual("reactionCount").get(function () {
+// 	// return this.reactions.reduce((total, reaction) => total + reactions.length + 1, 0);
+// 	return this.reactions.length;
+// });
 // Reaction (SCHEMA ONLY)
 
 // reactionId
-
 // Use Mongoose's ObjectId data type
 // Default value is set to a new ObjectId
-// reactionBody
 
+// reactionBody
 // String
 // Required
 // 280 character maximum
-// username
 
+// username
 // String
 // Required
-// createdAt
 
+// createdAt
 // Date
 // Set default value to the current timestamp
 // Use a getter method to format the timestamp on query
-// Schema Settings
 
+// Schema Settings
 // This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
 
 const Thought = model("Thought", ThoughtSchema);
