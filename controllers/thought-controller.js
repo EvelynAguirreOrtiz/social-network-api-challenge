@@ -1,7 +1,7 @@
 const { Thought, User } = require("../models");
 
 const thoughtController = {
-	// get all pizzas
+	// get all thoughts
 	getAllThought(req, res) {
 		Thought.find({})
 			.select("-__v")
@@ -27,6 +27,7 @@ const thoughtController = {
 	},
 
 	// create thought to add to user
+	// CHECK THIS ROUTE - "no user found w this id"
 	createThought({ params, body }, res) {
 		console.log(body);
 		Thought.create(body)
@@ -37,6 +38,23 @@ const thoughtController = {
 					{ new: true }
 				);
 			})
+			.then((dbUserData) => {
+				if (!dbUserData) {
+					res.status(404).json({ message: "No user found with this id!" });
+					return;
+				}
+				res.json(dbUserData);
+			})
+			.catch((err) => res.json(err));
+	},
+
+	// add reaction
+	addReaction({ params, body }, res) {
+		Thought.findOneAndUpdate(
+			{ _id: params.thoughtId },
+			{ $push: { replies: body } },
+			{ new: true }
+		)
 			.then((dbUserData) => {
 				if (!dbUserData) {
 					res.status(404).json({ message: "No user found with this id!" });
@@ -93,6 +111,17 @@ const thoughtController = {
 				}
 				res.json(dbUserData);
 			})
+			.catch((err) => res.json(err));
+	},
+
+	// remove reaction
+	removeReaction({ params }, res) {
+		Comment.findOneAndUpdate(
+			{ _id: params.thoughtId },
+			{ $pull: { reactions: { reactionId: params.reactionId } } },
+			{ new: true }
+		)
+			.then((dbUserData) => res.json(dbUserData))
 			.catch((err) => res.json(err));
 	},
 };

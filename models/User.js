@@ -21,25 +21,26 @@ const UserSchema = new Schema(
 				message: (props) => `${props.value} is not a valid email!`,
 			},
 		},
+		// Array of _id values referencing the Thought model
 		thoughts: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: "Thought",
 			},
 		],
-		// Array of _id values referencing the Thought model
+
+		// Array of _id values referencing the User model (self-reference)
 		friends: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: "User",
 			},
 		],
-		// Array of _id values referencing the User model (self-reference)
 	},
 	{
 		toJSON: {
 			virtuals: true,
-			// getters: true,
+			getters: true,
 		},
 		id: false,
 	}

@@ -13,11 +13,10 @@ const {
 router.route("/").get(getAllUser).post(createUser);
 
 // GET a single user by  _id and populated thought and friend data
-// router.route("/:id/:thoughtId").get(getUserById);
-
 // PUT to update a user by  _id
 // DELETE to remove user by  _id
-router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
+router.route("/:id/:thoughtId/:friendId").get(getUserById);
+router.route("/:id").put(updateUser).delete(deleteUser);
 
 // BONUS: Remove a user's associated thoughts when deleted.
 
