@@ -30,9 +30,6 @@ const ReactionSchema = new Schema(
 	}
 );
 
-// Schema Settings
-// This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
-
 // Thought model
 const ThoughtSchema = new Schema(
 	{
@@ -62,10 +59,8 @@ const ThoughtSchema = new Schema(
 	}
 );
 
-// Schema Settings
-// Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
+// Virtual that retrieves the length of the thought's reactions array
 ThoughtSchema.virtual("reactionCount").get(function () {
-	// return this.reactions.reduce((total, reaction) => total + reactions.length + 1, 0);
 	return this.reactions.length;
 });
 

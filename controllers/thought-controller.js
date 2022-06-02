@@ -51,7 +51,7 @@ const thoughtController = {
 	addReaction({ params, body }, res) {
 		Thought.findOneAndUpdate(
 			{ _id: params.thoughtId },
-			{ $push: { replies: body } },
+			{ $push: { reactions: body } },
 			{ new: true }
 		)
 			.then((dbUserData) => {
@@ -65,7 +65,6 @@ const thoughtController = {
 	},
 
 	// update thought by id
-	// UPDATES BUT RETURNS EMPTY OBJECT
 	updateThought({ params, body }, res) {
 		Thought.findOneAndUpdate({ _id: params.id }, body, {
 			new: true,
@@ -76,9 +75,7 @@ const thoughtController = {
 					return res.status(404).json({ message: "No thought with this id!" });
 				}
 				return User.findOneAndUpdate(
-					// { _id: params.userId },
 					{ _id: body.userId },
-					// { $pull: { thoughts: params.thoughtId } },
 					{ $pull: { thoughts: _id } },
 					{ new: true }
 				);
@@ -117,8 +114,9 @@ const thoughtController = {
 	},
 
 	// remove reaction
+	// NEED TO FIND ROUTE
 	removeReaction({ params }, res) {
-		Comment.findOneAndUpdate(
+		Thought.findOneAndUpdate(
 			{ _id: params.thoughtId },
 			{ $pull: { reactions: { reactionId: params.reactionId } } },
 			{ new: true }

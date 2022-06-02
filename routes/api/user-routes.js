@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-	getAllUser,
+	getAllUsers,
 	getUserById,
 	createUser,
 	updateUser,
@@ -8,18 +8,21 @@ const {
 } = require("../../controllers/user-controller");
 
 // /api/users
-// GET all users
-// POST a new user : { "username": "lernantino", "email": "lernantino@gmail.com" }
-router.route("/").get(getAllUser).post(createUser);
+router
+	.route("/")
+	// GET all users
+	.get(getAllUsers)
+	// POST new user : { "username": "lernantino", "email": "lernantino@gmail.com" }
+	.post(createUser);
 
-// GET a single user by  _id and populated thought and friend data
-// PUT to update a user by  _id
-// DELETE to remove user by  _id
-
-// router.route("/:id/:thoughtId/:friendId").get(getUserById);
-
-router.route("/:id").get(getUserById);
-router.route("/:id").put(updateUser).delete(deleteUser);
+router
+	.route("/:id")
+	// GET a single user by  _id and populated thought and friend data
+	.get(getUserById)
+	// UPDATE a user by  _id
+	.put(updateUser)
+	// DELETE user by  _id
+	.delete(deleteUser);
 
 // BONUS: Remove a user's associated thoughts when deleted.
 

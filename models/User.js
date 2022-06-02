@@ -29,7 +29,7 @@ const UserSchema = new Schema(
 			},
 		],
 
-		// Array of _id values referencing the User model (self-reference)
+		// Array of _id values referencing the User model
 		friends: [
 			{
 				type: Schema.Types.ObjectId,
@@ -46,10 +46,8 @@ const UserSchema = new Schema(
 	}
 );
 
-// Schema Settings
-// Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+// Virtual that retrieves the length of the user's friends array
 UserSchema.virtual("friendCount").get(function () {
-	// return this.friends.reduce((total, friend) => total + friends.length + 1, 0);
 	return this.friends.length;
 });
 
