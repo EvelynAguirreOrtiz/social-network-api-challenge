@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-	getAllThought,
+	getAllThoughts,
 	getThoughtById,
 	createThought,
 	updateThought,
@@ -13,7 +13,7 @@ const {
 router
 	.route("/")
 	// GET all thoughts
-	.get(getAllThought)
+	.get(getAllThoughts)
 	// POST a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
 	// example data: { "thoughtText": "Here's a cool thought...", "username": "lernantino",  "userId": "5edff358a0fcb779aa7b118b" }
 	.post(createThought);

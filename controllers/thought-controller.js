@@ -2,7 +2,7 @@ const { Thought, User } = require("../models");
 
 const thoughtController = {
 	// get all thoughts
-	getAllThought(req, res) {
+	getAllThoughts(req, res) {
 		Thought.find({})
 			.select("-__v")
 			.sort({ _id: -1 })
@@ -14,9 +14,8 @@ const thoughtController = {
 	},
 
 	// find thought by id
-	// CHECK THIS ROUTE (does not work)
 	getThoughtById({ params }, res) {
-		Thought.findOne({ _id: params.thoughtId })
+		Thought.findOne({ _id: params.id })
 			.then((dbThoughtData) => {
 				if (!dbThoughtData) {
 					res.status(404).json({ message: "No thought found with this id!" });
@@ -66,7 +65,7 @@ const thoughtController = {
 	},
 
 	// update thought by id
-	// THIS WORKS BUT THROWS NO USER ERROR MESSAGE
+	// UPDATES BUT RETURNS EMPTY OBJECT
 	updateThought({ params, body }, res) {
 		Thought.findOneAndUpdate({ _id: params.id }, body, {
 			new: true,
@@ -79,7 +78,8 @@ const thoughtController = {
 				return User.findOneAndUpdate(
 					// { _id: params.userId },
 					{ _id: body.userId },
-					{ $pull: { thoughts: params.thoughtId } },
+					// { $pull: { thoughts: params.thoughtId } },
+					{ $pull: { thoughts: _id } },
 					{ new: true }
 				);
 			})
@@ -94,16 +94,15 @@ const thoughtController = {
 	},
 
 	// delete thought
-	// CHECK THIS ROUTE (NO THOUGHT ERROR)
 	removeThought({ params }, res) {
-		Thought.findOneAndDelete({ _id: params.thoughtId })
-			.then((deletedThought) => {
-				if (!deletedThought) {
+		Thought.findOneAndDelete({ _id: params.id })
+			.then((dbThoughtData) => {
+				if (!dbThoughtData) {
 					return res.status(404).json({ message: "No thought with this id!" });
 				}
 				return User.findOneAndUpdate(
-					{ _id: params.userId },
-					{ $pull: { thoughts: params.thoughtId } },
+					{ _id: body.userId },
+					{ $pull: { thoughts: _id } },
 					{ new: true }
 				);
 			})
