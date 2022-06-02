@@ -18,7 +18,7 @@ mongoose.connect(
 	}
 );
 
-// Use this to log mongo queries being executed!
+// log mongo queries
 mongoose.set("debug", true);
 
 app.listen(PORT, () => console.log(`Connected on localhost:${PORT}`));

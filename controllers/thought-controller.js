@@ -14,6 +14,7 @@ const thoughtController = {
 	},
 
 	// find thought by id
+	// CHECK THIS ROUTE (does not work)
 	getThoughtById({ params }, res) {
 		Thought.findOne({ _id: params.thoughtId })
 			.then((dbThoughtData) => {
@@ -27,13 +28,12 @@ const thoughtController = {
 	},
 
 	// create thought to add to user
-	// CHECK THIS ROUTE - "no user found w this id"
 	createThought({ params, body }, res) {
-		console.log(body);
+		// console.log(params);
 		Thought.create(body)
 			.then(({ _id }) => {
 				return User.findOneAndUpdate(
-					{ _id: params.userId },
+					{ _id: body.userId },
 					{ $push: { thoughts: _id } },
 					{ new: true }
 				);
@@ -66,6 +66,7 @@ const thoughtController = {
 	},
 
 	// update thought by id
+	// THIS WORKS BUT THROWS NO USER ERROR MESSAGE
 	updateThought({ params, body }, res) {
 		Thought.findOneAndUpdate({ _id: params.id }, body, {
 			new: true,
@@ -76,7 +77,8 @@ const thoughtController = {
 					return res.status(404).json({ message: "No thought with this id!" });
 				}
 				return User.findOneAndUpdate(
-					{ _id: params.userId },
+					// { _id: params.userId },
+					{ _id: body.userId },
 					{ $pull: { thoughts: params.thoughtId } },
 					{ new: true }
 				);
@@ -92,6 +94,7 @@ const thoughtController = {
 	},
 
 	// delete thought
+	// CHECK THIS ROUTE (NO THOUGHT ERROR)
 	removeThought({ params }, res) {
 		Thought.findOneAndDelete({ _id: params.thoughtId })
 			.then((deletedThought) => {
