@@ -32,7 +32,11 @@ router
 router
 	.route("/:thoughtId/reactions")
 	// CREATE a reaction
-	.post(addReaction)
+	.post(addReaction);
+
+// /api/thoughts/:thoughtId/reactions/reactionId
+router
+	.route("/:thoughtId/reactions/:reactionId")
 	// DELETE a reaction by the reaction's reactionId value
 	.delete(removeReaction);
 

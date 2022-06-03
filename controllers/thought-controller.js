@@ -28,7 +28,6 @@ const thoughtController = {
 
 	// create thought to add to user
 	createThought({ params, body }, res) {
-		// console.log(params);
 		Thought.create(body)
 			.then(({ _id }) => {
 				return User.findOneAndUpdate(
@@ -114,7 +113,6 @@ const thoughtController = {
 	},
 
 	// remove reaction
-	// NEED TO FIND ROUTE
 	removeReaction({ params }, res) {
 		Thought.findOneAndUpdate(
 			{ _id: params.thoughtId },
