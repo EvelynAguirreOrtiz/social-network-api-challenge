@@ -49,7 +49,11 @@ const userController = {
 	addFriend({ params, body }, res) {
 		User.findOneAndUpdate(
 			{ _id: params.userId },
-			{ $push: { friends: { friendsId: params.friendId } } },
+			// { _id: body.userId },
+			// { $push: { friends: { friendsId: body.id } } },
+			// { $push: { friends: { friendsId: params.id } } },
+			// { $addToSet: { friends: { friendsId: params.id } } },
+			{ $addToSet: { friends: body } },
 			{ new: true }
 		)
 			.then((dbUserData) => {
@@ -95,7 +99,8 @@ const userController = {
 	deleteFriend({ params }, res) {
 		User.findOneAndUpdate(
 			{ _id: params.userId },
-			{ $pull: { friends: { friendsId: params.friendId } } },
+			// { $pull: { friends: { friendsId: params.friendId } } },
+			{ $pull: { friends: params.friendId } },
 			{ new: true }
 		)
 			.then((dbUserData) => res.json(dbUserData))
