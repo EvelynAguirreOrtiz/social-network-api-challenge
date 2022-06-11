@@ -16,7 +16,7 @@ Reactions to thoughts can be created and users' friends can be added via API POS
 
 ## Usage
 
-A demo of the API can be found [here](./assets/images/social-network-api.mp4) or through this link: [Social Network API Demo](https://drive.google.com/file/d/19fEyUSwuMGM2CJlX_SvIDtlU80GyLNtz/view)
+A demo of the API can be found [here](./assets/images/social_network_api_demo.mp4) or through this link: [Social Network API Demo](https://drive.google.com/file/d/1W04ygBQk8pakRmLyxOPdducXhPO8cHPm/view)
 
 ![](./assets/images/social-network-api.gif)
 
