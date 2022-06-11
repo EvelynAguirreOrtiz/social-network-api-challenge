@@ -14,8 +14,7 @@ router
 	.route("/")
 	// GET all thoughts
 	.get(getAllThoughts)
-	// CREATE a new thought
-	// example data: { "thoughtText": "Here's a cool thought...", "username": "lernantino",  "userId": "5edff358a0fcb779aa7b118b" }
+	// CREATE a new thought: { "thoughtText": "Here's a cool thought...", "username": "johnDoe",  "userId": "5edff358a0fcb779aa7b118b" }
 	.post(createThought);
 
 // /api/thoughts/:id

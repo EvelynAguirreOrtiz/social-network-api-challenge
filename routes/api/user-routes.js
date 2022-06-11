@@ -14,12 +14,12 @@ router
 	.route("/")
 	// GET all users
 	.get(getAllUsers)
-	// POST new user : { "username": "lernantino", "email": "lernantino@gmail.com" }
+	// CREATE new user : { "username": "johnDoe", "email": "johnDoe@gmail.com" }
 	.post(createUser);
 
 router
 	.route("/:id")
-	// GET a single user by  _id and populated thought and friend data
+	// GET a single user by  _id
 	.get(getUserById)
 	// UPDATE a user by  _id
 	.put(updateUser)

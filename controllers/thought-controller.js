@@ -64,7 +64,6 @@ const thoughtController = {
 	},
 
 	// update thought by id
-	// NO RES
 	updateThought({ params, body }, res) {
 		Thought.findOneAndUpdate({ _id: params.id }, body, {
 			new: true,
@@ -91,7 +90,6 @@ const thoughtController = {
 	},
 
 	// delete thought
-	// NO RES
 	removeThought({ params }, res) {
 		Thought.findOneAndDelete({ _id: params.id })
 			.then((dbThoughtData) => {
